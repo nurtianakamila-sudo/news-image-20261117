@@ -1,4 +1,4 @@
-"""News-image entry (Python 3.13, standard library only): copies the bundled
+"""News-image entry v2 (Python 3.13, standard library only): copies the bundled
 front-page image to /output/entry.png. Deterministic: the same bytes every run.
 
 Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
@@ -15,7 +15,9 @@ _src = os.path.join(_HERE, "entry.png")
 _dst = os.path.join(_OUT, "entry.png")
 shutil.copyfile(_src, _dst)
 # Guard the deterministic-output requirement: the written file must be
-# byte-identical to the bundled image, never a truncated copy.
+# byte-identical to the bundled image, never a truncated copy. The v2
+# front page (lead-story layout) is a single pre-rendered PNG, so the
+# copy is the whole deterministic step — nothing is drawn at run time.
 with open(_src, "rb") as _f:
     _want = hashlib.sha256(_f.read()).hexdigest()
 with open(_dst, "rb") as _f:
